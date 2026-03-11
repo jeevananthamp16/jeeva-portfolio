@@ -7,7 +7,7 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jeevananthamp16.github.io',
-  base: '/jeev-portfolio',
+  base: '/jeeva-portfolio',
   devToolbar: {
     enabled: false
   },
