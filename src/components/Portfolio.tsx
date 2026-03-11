@@ -8,7 +8,7 @@ const personalInfo = {
   email: "jeevananthamp16@gmail.com",
   linkedin: "https://linkedin.com/in/jeevananthamp16",
   github: "https://github.com/jeevananthamp16",
-  portfolio: "https://jeevananthamp16.github.io/my-portfolio",
+  portfolio: "https://jeevananthamp16.github.io/jeeva-portfolio",
   location: "Bangalore, India",
   summary: `Site Reliability Engineer with 6+ years of expertise in building and maintaining resilient, high-availability systems for enterprise-scale platforms. Currently ensuring 99.99% uptime for Cisco Webex Meetings, managing 50+ Kubernetes clusters across global data centers. Reduced MTTD by 40% and MTTR by 35% through proactive monitoring and automation. Skilled in CI/CD orchestration, infrastructure as code, and cloud platforms (AWS, Azure). Passionate about GenAI and AIOps innovation.`,
 };
