@@ -263,9 +263,9 @@ function Hero() {
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg transition-all shadow-md hover:shadow-lg font-medium">
               <Icons.ExternalLink /> View Resume
             </a>
-            <a href={`${import.meta.env.BASE_URL}/Jeevanantham_P_Resume_2026.txt`} download="Jeevanantham_P_Resume_2026.txt"
+            <a href={`${import.meta.env.BASE_URL}/Jeevanantham_P_Resume_2026.pdf`} download="Jeevanantham_P_Resume_2026.pdf"
               className="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all font-medium border border-slate-200">
-              <Icons.Download /> Download TXT
+              <Icons.Download /> Download PDF
             </a>
           </div>
         </div>
