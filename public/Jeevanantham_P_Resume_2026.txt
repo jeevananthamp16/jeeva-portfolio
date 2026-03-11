@@ -1,0 +1,124 @@
+JEEVANANTHAM P
+Site Reliability Engineer | DevOps Engineer
+
+Bangalore, India
+Email: jeevananthamp16@gmail.com
+LinkedIn: linkedin.com/in/jeevananthamp16
+GitHub: github.com/jeevananthamp16
+Portfolio: jeevananthamp16.github.io/my-portfolio
+
+================================================================================
+PROFESSIONAL SUMMARY
+================================================================================
+
+Site Reliability Engineer with 6+ years of expertise in building and maintaining 
+resilient, high-availability systems for enterprise-scale platforms. Currently 
+ensuring 99.99% uptime for Cisco Webex Meetings, managing 50+ Kubernetes clusters 
+across global data centers. Reduced MTTD by 40% and MTTR by 35% through proactive 
+monitoring and automation. Skilled in CI/CD orchestration, infrastructure as code, 
+and cloud platforms (AWS, Azure). Passionate about GenAI and AIOps innovation.
+
+================================================================================
+TECHNICAL SKILLS
+================================================================================
+
+Cloud Platforms:        AWS (EC2, EKS, VPC, IAM, ECR), Azure (DevOps, AKS, VMs)
+Containers:             Docker, Kubernetes, ArgoCD, Helm
+CI/CD:                  Jenkins, GitLab CI/CD, GitHub Actions
+Infrastructure as Code: Terraform, Ansible
+Monitoring:             Prometheus, Grafana, ELK Stack, EFK Stack, AppDynamics, ThousandEyes
+Programming:            Python, Bash, Shell Scripting, Java
+Version Control:        Git, GitHub, GitLab
+Operating Systems:      Linux (RHEL, Ubuntu, CentOS), System Administration
+Messaging:              Apache Kafka
+
+================================================================================
+PROFESSIONAL EXPERIENCE
+================================================================================
+
+SITE RELIABILITY ENGINEER
+Cisco Systems | Bangalore, India | 2023 - Present
+--------------------------------------------------------------------------------
+* Maintain 99.99% uptime for Cisco Webex Meetings, managing 50+ Kubernetes clusters across 8 global data centers
+* Automate CI/CD workflows using Jenkins, GitLab CI/CD, GitHub Actions, ArgoCD, reducing deployment time by 40%
+* Design 25+ Grafana dashboards tracking service availability, error rates, latency, and capacity metrics
+* Leverage AppDynamics for transaction tracing; ThousandEyes for monitoring global endpoint reachability
+* Reduce MTTD by 40% and MTTR by 35% through proactive alerting and automated runbooks
+* Develop 20+ Python and Bash automation scripts saving 15+ hours weekly in manual operations
+* Conduct RCA for 100+ production incidents, reducing repeat incidents by 60%
+* Built and published "Copilot Chat History Search" VS Code extension on VS Code Marketplace
+* Lead AIOps initiatives integrating ML models for anomaly detection
+
+SOFTWARE ENGINEER
+Torry Harris Integration Solutions | Bangalore, India | Sep 2021 - 2023
+--------------------------------------------------------------------------------
+* Developed 10+ enterprise Java applications using AWS SDK for cloud integrations
+* Built CI/CD pipelines using Jenkins and Docker, achieving 95% deployment success rate
+* Designed Kafka clusters processing 500K+ messages daily on Kubernetes
+* Built PDF Q&A chatbot using LangChain and LLM models with 85% query accuracy
+* Integrated Hugging Face models for NLP tasks, reducing document processing time by 50%
+* Optimized deployment workflows, reducing release cycles by 30%
+
+ASSOCIATE SOFTWARE ENGINEER
+Torry Harris Integration Solutions | Bangalore, India | Aug 2019 - Sep 2021
+--------------------------------------------------------------------------------
+* Provisioned Azure cloud infrastructure using Terraform, reducing provisioning time by 60%
+* Containerized 15+ Kafka applications using Docker for consistent deployments
+* Implemented configuration management standardizing infrastructure across 3 environments
+* Developed 10+ RPA automation workflows using UiPath, automating 200+ hours monthly
+* Participated in agile development with 95% sprint completion rate
+
+================================================================================
+KEY PROJECTS
+================================================================================
+
+CLOUD INSTANCE MANAGER (CIM) - Full-Stack Application
+* Developed Spring Boot backend with AWS SDK for EC2 instance lifecycle management
+* Implemented JWT-based authentication with role-based access control
+* Built features for instance start/stop/reboot, security groups, and EBS volumes
+* Designed RESTful APIs for multi-region AWS resource management
+* Technologies: Java, Spring Boot, AWS SDK, MySQL, JWT, REST API
+
+COPILOT CHAT HISTORY SEARCH (VS Code Extension)
+* Developed TypeScript extension for Copilot chat history management
+* Published on VS Code Marketplace
+* Technologies: TypeScript, VS Code API, Node.js
+
+PDF Q&A CHATBOT - AI/ML Application
+* Built intelligent chatbot using LangChain and LLM models for PDF document analysis
+* Implemented document chunking, embedding generation, and vector store for semantic search
+* Enabled natural language Q&A over uploaded documents with context-aware responses
+* Explored and integrated Hugging Face models for NLP tasks
+* Technologies: Python, LangChain, OpenAI/LLM Models, Hugging Face, Vector DB, Streamlit
+
+SLO DASHBOARDS & OBSERVABILITY PLATFORM - Site Reliability
+* Designed SLO/SLI dashboards in Grafana for tracking service reliability metrics
+* Created error budget burn-rate alerts and availability tracking for microservices
+* Integrated Prometheus metrics with custom PromQL queries for SLO compliance
+* Technologies: Grafana, Prometheus, PromQL, AlertManager
+
+================================================================================
+EDUCATION
+================================================================================
+
+BACHELOR OF ENGINEERING - COMPUTER SCIENCE
+Velammal Engineering College, Anna University | Chennai, India | 2015 - 2019
+GPA: 74%
+
+HIGH SCHOOL
+Adhiyaman Matric H.R. Secondary School | Uthangarai, India | 2014 - 2015
+GPA: 94%
+
+================================================================================
+CERTIFICATIONS (In Progress)
+================================================================================
+
+* AWS Cloud Practitioner
+* Kubernetes Administrator (CKA)
+* LLM Model Deployment & Fine-tuning
+
+================================================================================
+INTERESTS
+================================================================================
+
+Open Source | GenAI & LLMs | AIOps | Cloud-Native Technologies | Technical Writing
