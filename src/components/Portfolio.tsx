@@ -3,6 +3,14 @@ import { useState, useEffect } from "react";
 // ============================================================
 // DATA — sourced from Jeevanantham P Resume 2026
 // ============================================================
+
+// Career start: first company (Torry Harris) joining date — Aug 2019.
+// Total years of experience auto-updates to today's date.
+const CAREER_START_DATE = new Date("2019-08-01");
+const yearsOfExperience = Math.floor(
+  (Date.now() - CAREER_START_DATE.getTime()) / (365.25 * 24 * 60 * 60 * 1000)
+);
+
 const personalInfo = {
   name: "Jeevanantham P",
   firstName: "Jeevanantham",
@@ -14,11 +22,11 @@ const personalInfo = {
   linkedin: "https://linkedin.com/in/jeevananthamp16",
   github: "https://github.com/jeevananthamp16",
   location: "Chennai, India",
-  summary: `Site Reliability Engineer with 6+ years ensuring 99.99% uptime for Cisco Webex Meetings across 50+ Kubernetes clusters and 8 global data centers serving 100M+ users. Drove 40% MTTD reduction and 35% MTTR reduction through automation and continuous monitoring. Expertise in Kubernetes, CI/CD, IaC, and cloud platforms (AWS, Azure).`,
+  summary: `Site Reliability Engineer with ${yearsOfExperience}+ years ensuring 99.99% uptime for Cisco Webex Meetings across 50+ Kubernetes clusters and 8 global data centers serving 100M+ users. Drove 40% MTTD reduction and 35% MTTR reduction through automation and continuous monitoring. Expertise in Kubernetes, CI/CD, IaC, and cloud platforms (AWS, Azure).`,
 };
 
 const stats = [
-  { value: "6+", label: "Years Experience" },
+  { value: `${yearsOfExperience}+`, label: "Years Experience" },
   { value: "99.99%", label: "Uptime Delivered" },
   { value: "50+", label: "K8s Clusters" },
   { value: "100M+", label: "Users Served" },
