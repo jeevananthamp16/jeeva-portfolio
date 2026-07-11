@@ -291,9 +291,10 @@ function Header() {
 }
 
 function Hero() {
-  const initials = "JP";
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
+      {/* Themed grid background */}
+      <div className="absolute inset-0 bg-grid-theme" />
       {/* Background glow orbs */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
@@ -343,9 +344,12 @@ function Hero() {
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 blur-2xl opacity-40 animate-pulse-slow" />
             <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-1.5 bg-gradient-to-tr from-cyan-400 via-sky-500 to-blue-600">
               <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
-                <span className="text-7xl md:text-8xl font-bold bg-gradient-to-tr from-cyan-400 to-blue-500 bg-clip-text text-transparent select-none">
-                  {initials}
-                </span>
+                <img
+                  src={`${import.meta.env.BASE_URL}profile.jpeg`}
+                  alt={personalInfo.name}
+                  className="w-full h-full object-cover rounded-full select-none"
+                  loading="eager"
+                />
               </div>
             </div>
           </div>
