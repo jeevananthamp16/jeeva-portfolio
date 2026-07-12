@@ -178,37 +178,85 @@ const toolchainMarquee: { file: string; label: string }[] = [
   { file: "langchain", label: "LangChain" },
 ];
 
+// GitHub-style language colours for the per-repo language bar.
+const langColors: Record<string, string> = {
+  Java: "#b07219",
+  SQL: "#e38c00",
+  Shell: "#89e051",
+  TypeScript: "#3178c6",
+  JavaScript: "#f1e05a",
+  Python: "#3572A5",
+  PromQL: "#e6522c",
+  JSON: "#cbcb41",
+  HCL: "#844FBA",
+  Dockerfile: "#384d54",
+};
+
+// Projects presented as git repositories — each carries a repo slug, a
+// language breakdown (rendered as a GitHub-style bar), a release/status
+// badge, and its default branch. Content is unique per repo.
 const projects = [
   {
     name: "Cloud Instance Manager",
+    repo: "jeevananthamp16/cloud-instance-manager",
     description:
       "AWS EC2 management platform built with Spring Boot featuring JWT authentication, RBAC, instance lifecycle control, security-group management, and multi-region support.",
     tech: ["Java", "Spring Boot", "AWS SDK", "MySQL", "JWT", "REST API"],
+    languages: [
+      { name: "Java", pct: 82 },
+      { name: "SQL", pct: 11 },
+      { name: "Shell", pct: 7 },
+    ],
+    branch: "main",
+    status: "deployed",
     link: "https://github.com/jeevananthamp16",
     accent: "from-cyan-500/20 to-blue-500/20",
   },
   {
     name: "Copilot Chat History Search",
+    repo: "jeevananthamp16/copilot-chat-search",
     description:
       "VS Code extension for searching GitHub Copilot conversations, published on the VS Code Marketplace for enhanced developer productivity.",
     tech: ["TypeScript", "VS Code API", "Node.js"],
+    languages: [
+      { name: "TypeScript", pct: 90 },
+      { name: "JavaScript", pct: 6 },
+      { name: "JSON", pct: 4 },
+    ],
+    branch: "main",
+    status: "released",
     link: "https://github.com/jeevananthamp16",
     badge: "Published",
     accent: "from-teal-500/20 to-emerald-500/20",
   },
   {
     name: "PDF Q&A Chatbot",
+    repo: "jeevananthamp16/pdf-qa-chatbot",
     description:
       "LangChain-based AI chatbot with vector search for document analysis. Implements chunking, embeddings, and semantic search for natural-language Q&A.",
     tech: ["Python", "LangChain", "LLM", "Hugging Face", "Vector DB", "Streamlit"],
+    languages: [
+      { name: "Python", pct: 93 },
+      { name: "Shell", pct: 7 },
+    ],
+    branch: "main",
+    status: "deployed",
     link: "https://github.com/jeevananthamp16",
     accent: "from-violet-500/20 to-fuchsia-500/20",
   },
   {
     name: "SLO Dashboards",
+    repo: "jeevananthamp16/slo-dashboards",
     description:
       "Grafana SLO/SLI dashboards with error-budget burn-rate alerts, availability tracking, and custom PromQL queries integrated with Prometheus.",
     tech: ["Grafana", "Prometheus", "PromQL", "AlertManager"],
+    languages: [
+      { name: "JSON", pct: 52 },
+      { name: "PromQL", pct: 40 },
+      { name: "Shell", pct: 8 },
+    ],
+    branch: "main",
+    status: "deployed",
     link: "https://github.com/jeevananthamp16",
     accent: "from-amber-500/20 to-orange-500/20",
   },
@@ -221,6 +269,9 @@ const education = [
     period: "2015 – 2019",
     location: "Chennai, India",
     grade: "74/100",
+    layer: "base",
+    resource: "compsci:degree",
+    modules: ["Algorithms", "Operating Systems", "Networks", "DBMS", "OOP"],
   },
   {
     degree: "Higher Secondary Education",
@@ -228,6 +279,9 @@ const education = [
     period: "2014 – 2015",
     location: "Uthangarai, India",
     grade: "94/100",
+    layer: "foundation",
+    resource: "science:hsc",
+    modules: ["Mathematics", "Physics", "Computer Science"],
   },
 ];
 
@@ -263,6 +317,30 @@ const terminalLines = [
   { out: "automation:   [Python, Bash, Terraform, Vault]" },
   { p: "jeeva@webex-sre", d: "~", cmd: "./contact.sh --open-to-work" },
   { out: "\u2714 Available for SRE / DevOps roles" },
+];
+
+// ── Delivery pipeline (CI/CD visualizer) ──
+const deliveryStages = [
+  { name: "Source", sub: "git push", logo: "git", status: "done" },
+  { name: "Build", sub: "compile + lint", logo: "jenkins", status: "done" },
+  { name: "Test", sub: "unit / integration", glyph: "\u2713", status: "done" },
+  { name: "Artifact", sub: "image + scan", logo: "docker", status: "done" },
+  { name: "Deploy", sub: "ArgoCD \u2192 K8s", logo: "kubernetes", status: "running" },
+  { name: "Verify", sub: "SLO smoke check", glyph: "\u25C9", status: "pending" },
+];
+
+const deployStrategies = [
+  { name: "Rolling", desc: "Zero-downtime, surge + maxUnavailable tuned" },
+  { name: "Blue / Green", desc: "Instant switch, instant rollback" },
+  { name: "Canary", desc: "Progressive traffic shift w/ auto-analysis" },
+];
+
+// ── DORA + reliability scorecard ──
+const doraMetrics = [
+  { label: "Deployment Frequency", value: "Multiple / day", trend: "Elite", good: true },
+  { label: "Lead Time for Changes", value: "\u221260%", trend: "faster releases", good: true },
+  { label: "Change Failure Rate", value: "<5%", trend: "95% clean deploys", good: true },
+  { label: "Mean Time to Restore", value: "\u221235%", trend: "faster recovery", good: true },
 ];
 
 // ============================================================
@@ -319,12 +397,22 @@ const Icons = {
       <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
     </svg>
   ),
+  Repo: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-500">
+      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+    </svg>
+  ),
+  Branch: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="6" x2="6" y1="3" y2="15" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M18 9a9 9 0 0 1-9 9" />
+    </svg>
+  ),
 };
 
 // ============================================================
 // NAV ITEMS
 // ============================================================
-const navItems = ["Home", "Live Ops", "Skills", "Experience", "Projects", "Education", "Contact"];
+const navItems = ["Home", "Live Ops", "Pipeline", "Reliability", "Skills", "Experience", "Projects", "Education", "Contact"];
 
 // ============================================================
 // COMPONENTS
@@ -511,6 +599,144 @@ function LiveOps() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DeliveryPipeline() {
+  const statusRing: Record<string, string> = {
+    done: "border-emerald-500/60 bg-emerald-500/10 text-emerald-300",
+    running: "border-cyan-400/70 bg-cyan-500/10 text-cyan-300 node-running",
+    pending: "border-slate-700/70 bg-slate-900/60 text-slate-500",
+  };
+  const badge: Record<string, string> = {
+    done: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+    running: "bg-cyan-500/20 text-cyan-300 border-cyan-400/40",
+    pending: "bg-slate-800 text-slate-500 border-slate-700",
+  };
+  const badgeGlyph: Record<string, string> = { done: "\u2714", running: "\u27F3", pending: "\u2022" };
+
+  return (
+    <section id="pipeline" className="bg-cockpit py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeading
+          eyebrow="CI/CD"
+          title="Delivery Pipeline"
+          subtitle="Every commit ships through an automated, observable path — build to verified in production, with progressive delivery and instant rollback."
+        />
+
+        {/* Pipeline flow */}
+        <div className="rounded-2xl border border-slate-700/70 bg-slate-900/60 p-6 md:p-8">
+          <div className="flex items-center justify-between mb-6">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400">pipeline · main</span>
+            <span className="inline-flex items-center gap-2 text-xs font-mono text-emerald-300">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" /> passing
+            </span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-stretch gap-3">
+            {deliveryStages.map((stage, i) => (
+              <div key={stage.name} className="flex flex-col md:flex-row md:items-center flex-1 gap-3">
+                <div
+                  className={`metric-card flex-1 rounded-xl border p-4 transition-transform hover:-translate-y-0.5 ${statusRing[stage.status]} animate-fade-up`}
+                  style={{ animationDelay: `${i * 90}ms` }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="w-9 h-9 grid place-items-center rounded-lg bg-slate-950/60 border border-slate-700/60">
+                      {stage.logo ? (
+                        <img src={`${import.meta.env.BASE_URL}icons/${stage.logo}.svg`} alt={`${stage.name} logo`} className="w-5 h-5 object-contain" loading="lazy" />
+                      ) : (
+                        <span className="text-base">{stage.glyph}</span>
+                      )}
+                    </span>
+                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${badge[stage.status]}`}>
+                      {badgeGlyph[stage.status]}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-white">{stage.name}</p>
+                  <p className="text-xs font-mono text-slate-400">{stage.sub}</p>
+                </div>
+
+                {i < deliveryStages.length - 1 && (
+                  <div className="hidden md:block w-6 h-[3px] rounded-full bg-slate-800 overflow-hidden shrink-0">
+                    {stage.status === "done" && <div className="h-full pipe-flow" />}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Deployment strategies */}
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {deployStrategies.map((s) => (
+            <div key={s.name} className="metric-card rounded-2xl border border-slate-700/70 bg-slate-900/60 p-5">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                <h3 className="text-sm font-semibold text-white">{s.name}</h3>
+              </div>
+              <p className="mt-2 text-sm text-slate-400 leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Reliability() {
+  const budgetRemaining = liveOps.errorBudget; // 82
+  const budgetBurned = 100 - budgetRemaining;
+
+  return (
+    <section id="reliability" className="bg-cockpit py-24">
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeading
+          eyebrow="SLOs & DORA"
+          title="Reliability Scorecard"
+          subtitle="Engineering for four nines — measured with SLOs, error budgets, and the DORA metrics that map directly to delivery performance."
+        />
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Availability + error budget */}
+          <div className="lg:col-span-1 rounded-2xl border border-slate-700/70 bg-slate-900/60 p-6 flex flex-col items-center text-center">
+            <SloRing />
+            <p className="mt-4 text-sm font-semibold text-white">Service Availability</p>
+            <p className="text-xs font-mono text-slate-400">rolling 30-day SLO</p>
+
+            <div className="w-full mt-6 text-left">
+              <div className="flex items-center justify-between text-xs font-mono mb-2">
+                <span className="text-slate-400">Error budget</span>
+                <span className="text-emerald-300">{budgetRemaining}% left</span>
+              </div>
+              <div className="h-2.5 w-full rounded-full bg-slate-800 overflow-hidden">
+                <div
+                  className="budget-fill h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500"
+                  style={{ width: `${budgetRemaining}%` }}
+                />
+              </div>
+              <p className="mt-2 text-[11px] font-mono text-slate-500">{budgetBurned}% burned this window</p>
+            </div>
+          </div>
+
+          {/* DORA metrics */}
+          <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
+            {doraMetrics.map((m, i) => (
+              <div
+                key={m.label}
+                className="metric-card rounded-2xl border border-slate-700/70 bg-slate-900/60 p-5 animate-fade-up"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <p className="text-xs font-mono uppercase tracking-widest text-slate-400">{m.label}</p>
+                <p className="mt-2 text-2xl font-bold text-white">{m.value}</p>
+                <span className="mt-1 inline-flex items-center gap-1.5 text-xs text-emerald-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> {m.trend}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -881,32 +1107,76 @@ function Experience() {
 }
 
 function Projects() {
+  const statusStyle: Record<string, string> = {
+    deployed: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+    released: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+  };
   return (
     <section id="projects" className="py-24">
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading eyebrow="Portfolio" title="Featured Projects" subtitle="A selection of tools and applications I've designed and built." />
+        <SectionHeading eyebrow="Repositories" title="Featured Projects" subtitle="Tools and applications I've shipped — presented the way I work with them: as version-controlled repositories." />
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project) => (
-            <div key={project.name} className="group relative rounded-2xl bg-slate-900/50 border border-slate-800 p-7 overflow-hidden hover:border-cyan-500/50 transition-all duration-300">
+            <a
+              key={project.name}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col rounded-2xl bg-slate-900/50 border border-slate-800 overflow-hidden hover:border-cyan-500/50 transition-all duration-300"
+            >
               <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${project.accent} blur-2xl opacity-0 group-hover:opacity-100 transition-opacity`} />
-              <div className="relative">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">{project.name}</h3>
-                  {project.badge && (
-                    <span className="shrink-0 px-2.5 py-1 text-xs rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">{project.badge}</span>
-                  )}
-                </div>
-                <p className="text-slate-400 text-sm leading-relaxed mb-5">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.tech.map((t) => (
-                    <span key={t} className="px-2.5 py-1 text-xs rounded-md bg-slate-800/70 text-cyan-300 border border-slate-700/60">{t}</span>
-                  ))}
-                </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
-                  <Icons.Github /> View on GitHub
-                </a>
+
+              {/* repo header bar */}
+              <div className="relative flex items-center gap-2 px-5 py-3 border-b border-slate-800 bg-slate-950/50 font-mono text-xs">
+                <Icons.Repo />
+                <span className="text-slate-500">jeevananthamp16 /</span>
+                <span className="text-cyan-300 font-semibold truncate">{project.repo.split("/")[1]}</span>
+                <span className={`ml-auto shrink-0 px-2 py-0.5 rounded-full border ${statusStyle[project.status] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}>
+                  {project.badge ?? project.status}
+                </span>
               </div>
-            </div>
+
+              <div className="relative flex flex-col flex-1 p-5">
+                <h3 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors mb-2">{project.name}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-4">{project.description}</p>
+
+                {/* GitHub-style language bar */}
+                <div className="mt-auto">
+                  <div className="flex h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                    {project.languages.map((l) => (
+                      <span
+                        key={l.name}
+                        style={{ width: `${l.pct}%`, backgroundColor: langColors[l.name] ?? "#64748b" }}
+                        title={`${l.name} ${l.pct}%`}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2.5">
+                    {project.languages.map((l) => (
+                      <span key={l.name} className="inline-flex items-center gap-1.5 text-xs text-slate-400">
+                        <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: langColors[l.name] ?? "#64748b" }} />
+                        {l.name} <span className="text-slate-600">{l.pct}%</span>
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {project.tech.map((t) => (
+                      <span key={t} className="px-2.5 py-1 text-xs rounded-md bg-slate-800/70 text-cyan-300 border border-slate-700/60">{t}</span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between mt-5 pt-4 border-t border-slate-800/80">
+                    <span className="inline-flex items-center gap-1.5 text-xs text-slate-500 font-mono">
+                      <Icons.Branch /> {project.branch}
+                    </span>
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                      <Icons.Github /> View repo
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
           ))}
         </div>
       </div>
@@ -918,21 +1188,45 @@ function Education() {
   return (
     <section id="education" className="py-24 bg-slate-900/30">
       <div className="max-w-4xl mx-auto px-6">
-        <SectionHeading eyebrow="Academics" title="Education Journey" subtitle="My academic foundation in computer science and technology." />
-        <div className="grid md:grid-cols-2 gap-6">
+        <SectionHeading eyebrow="Provisioning" title="Foundation Layers" subtitle="The base image my career is built on — academic layers provisioned before the stack went live." />
+        <div className="space-y-4">
           {education.map((edu, index) => (
-            <div key={index} className="rounded-2xl bg-slate-900/60 border border-slate-800 p-6 hover:border-cyan-500/40 transition-all">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+            <div
+              key={index}
+              className="group relative rounded-2xl bg-slate-900/60 border border-slate-800 p-5 md:p-6 hover:border-cyan-500/40 transition-all"
+            >
+              <div className="flex flex-wrap items-center gap-3 mb-4 font-mono text-xs">
+                <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                  LAYER {String(education.length - index).padStart(2, "0")}
+                </span>
+                <span className="text-cyan-300">{edu.resource}</span>
+                <span className="ml-auto inline-flex items-center gap-1.5 text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> provisioned
+                </span>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
                   <Icons.Cap />
                 </div>
-                <span className="px-3 py-1 text-xs rounded-full bg-slate-800 text-slate-300 border border-slate-700">{edu.period}</span>
-              </div>
-              <h3 className="text-lg font-bold text-white">{edu.degree}</h3>
-              <p className="text-cyan-400 font-medium text-sm mt-1">{edu.institution}</p>
-              <div className="flex items-center justify-between mt-4 text-sm">
-                <span className="text-slate-500 inline-flex items-center gap-1"><Icons.MapPin /> {edu.location}</span>
-                <span className="text-slate-300 font-semibold">Grade: {edu.grade}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-lg font-bold text-white">{edu.degree}</h3>
+                    <span className="px-2.5 py-0.5 text-xs rounded-full bg-slate-800 text-slate-300 border border-slate-700">{edu.period}</span>
+                  </div>
+                  <p className="text-cyan-400 font-medium text-sm mt-1">{edu.institution}</p>
+
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {edu.modules.map((m) => (
+                      <span key={m} className="px-2.5 py-1 text-xs rounded-md bg-slate-800/60 text-slate-300 border border-slate-700/60">{m}</span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between mt-4 text-sm">
+                    <span className="text-slate-500 inline-flex items-center gap-1"><Icons.MapPin /> {edu.location}</span>
+                    <span className="text-slate-300 font-semibold">Grade: {edu.grade}</span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -1002,6 +1296,8 @@ export default function Portfolio() {
       <main>
         <Hero />
         <LiveOps />
+        <DeliveryPipeline />
+        <Reliability />
         <Skills />
         <Experience />
         <Projects />

@@ -110,6 +110,49 @@ body {
   animation: bar-grow 0.7s ease-out both;
 }
 
+/* ── Delivery pipeline flowing connector ── */
+@keyframes pipe-flow {
+  from { background-position: 0 0; }
+  to { background-position: 24px 0; }
+}
+.pipe-flow {
+  background-image: linear-gradient(
+    90deg,
+    rgba(34, 211, 238, 0.55) 0 8px,
+    transparent 8px 24px
+  );
+  background-size: 24px 100%;
+  animation: pipe-flow 0.9s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pipe-flow { animation: none; }
+}
+
+/* ── Error-budget burn bar fill ── */
+@keyframes budget-fill {
+  from { width: 0; }
+}
+.budget-fill {
+  animation: budget-fill 1.2s ease-out both;
+}
+
+/* ── Metric card sheen on hover ── */
+.metric-card {
+  position: relative;
+  overflow: hidden;
+}
+.metric-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120px 120px at var(--mx, 50%) var(--my, 0%), rgba(56, 189, 248, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.metric-card:hover::after {
+  opacity: 1;
+}
+
 /* ── Toolchain logo marquee ── */
 @keyframes marquee {
   from { transform: translateX(0); }
